@@ -52,8 +52,14 @@
       }
       h1 .accent { color: var(--teal); }
       .clock { text-align: right; flex: none; padding-top: 4px; }
-      .clock .time { font-family: "Sora", sans-serif; font-size: 22px; font-weight: 700; color: var(--ink); }
-      .clock .date { font-size: 12.5px; color: var(--muted); }
+      .clock .time { font-family: "Sora", sans-serif; font-size: 22px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .clock .date { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+      /* Stacked header: clock becomes one full-width row under the title, both
+         lines sharing the title's left edge instead of floating mid-page. */
+      @media (max-width: 720px) {
+        .brandrow { flex-direction: column; gap: 4px; }
+        .clock { width: 100%; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; text-align: left; padding-top: 0; }
+      }
       .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
       .meta span {
         font-size: 12.5px; color: var(--muted);
@@ -121,11 +127,11 @@
       ul.clean li { padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; }
       ul.clean li:first-child { border-top: none; padding-top: 2px; }
       ul.clean li:last-child { padding-bottom: 2px; }
-      ul.clean li:has(> .when) { display: flex; align-items: baseline; gap: 14px; }
+      ul.clean li:has(> .when) { display: flex; align-items: flex-start; gap: 14px; }
       ul.clean li .main { flex: 1 1 auto; min-width: 0; }
       li .who { font-weight: 700; }
       li .what { color: var(--muted); }
-      li .when { flex: none; font-size: 12.5px; color: var(--faint); font-weight: 700; white-space: nowrap; text-align: right; }
+      li .when { flex: 0 0 136px; font-size: 12.5px; line-height: 1.45; color: var(--faint); font-weight: 700; white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
 
       .tag {
         display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.03em;
@@ -198,7 +204,8 @@
         .ladder .step { flex: 1 1 100%; min-width: 0; }
         .ladder .arr { display: none; }
         ul.clean li:has(> .when) { gap: 10px; }
-        li .when { font-size: 11.5px; }
+        li .when { font-size: 11.5px; flex-basis: 122px; }
+        .clock .time { font-size: 20px; }
         .product .prow { grid-template-columns: 52px 1fr auto; }
         h1 { font-size: 26px; }
       }
@@ -217,7 +224,7 @@
         </div>
         <div class="meta">
           <span>For <b>Arslan</b></span>
-          <span>Updated <b>Nov 12, 2026, 3:05 pm PKT</b></span>
+          <span>Updated <b>Nov 12, 2026, 3:27 pm PKT</b></span>
           <span>Live on Vercel · refreshed every few hours</span>
         </div>
       </header>
@@ -256,11 +263,11 @@
 
       <!-- KPI strip -->
       <div class="kpis">
-        <div class="kpi"><div class="n">20</div><div class="t">RFP proposals submitted</div></div>
+        <div class="kpi"><div class="n">21</div><div class="t">RFP proposals submitted</div></div>
         <div class="kpi"><div class="n teal">4</div><div class="t">RFP replies received</div></div>
         <div class="kpi"><div class="n teal">1</div><div class="t">Social lead replies: Gilbert James only</div></div>
         <div class="kpi"><div class="n">0</div><div class="t">Gumroad sales, $0 revenue</div></div>
-        <div class="kpi wide"><div class="n teal">112</div><div class="t">Obliq Shorts scheduled: 2 weeks of content</div></div>
+        <div class="kpi wide"><div class="n teal">112</div><div class="t">Obliq Shorts scheduled: 12 days of content from today</div></div>
       </div>
 
       <!-- Decisions -->
@@ -282,7 +289,7 @@
             <li><span class="main"><span class="who">Agency Day 3</span> <span class="what">: finish the site, deploy, buy and connect the domain (buy-domain task due today).</span></span><span class="when">Thu Nov 12</span></li>
             <li><span class="main"><span class="who">Nightly jobs</span> <span class="what">: dentist mockup emails (up to 5), partner sends (up to 8, once batch 2 is approved), Pinterest pins (3).</span></span><span class="when">Thu Nov 12, 10:37 pm</span></li>
             <li><span class="main"><span class="who">Agency launch deadline</span> <span class="what">: site live plus business email working. Email setup is Day 4, same day.</span></span><span class="when">Fri Nov 13, 6:00 pm</span></li>
-            <li><span class="main"><span class="who">Proposal deadlines</span> <span class="what">: TechEquity ($87,000 confirmed, form submission in progress) and the IFFEd pair (Digital Platform only) are due; CDC Foundation, RochesterWorks, Amideast and Spaulding deadlines land too (all four already applied). Nevada Health Centers vendor questions already sent.</span></span><span class="when">Fri Nov 13</span></li>
+            <li><span class="main"><span class="who">Proposal deadlines</span> <span class="what">: TechEquity, price and schedule confirmed at $87,000, Google Form submission still pending, waiting for Arslan to sign in to the browser as arsalmaab@gmail.com (the tab is signed in under the wrong account); IFFEd (Digital Platform only), CDC Foundation, RochesterWorks, Amideast and Spaulding deadlines land too (all five already applied). Nevada Health Centers vendor questions already sent.</span></span><span class="when">Fri Nov 13</span></li>
             <li><span class="main"><span class="who">Obliq weekly strategy review</span> <span class="what">: first run of the Friday job.</span></span><span class="when">Fri Nov 13, 2:07 pm</span></li>
             <li><span class="main"><span class="who">Agency absolute max launch date</span> <span class="what"> if Nov 13 slips.</span></span><span class="when">Mon Nov 16</span></li>
             <li><span class="main"><span class="who">Coastal Bend questions due</span> <span class="what"> (proposal already applied).</span></span><span class="when">Tue Nov 17</span></li>
@@ -294,7 +301,7 @@
 
       <!-- RFP pipeline -->
       <section>
-        <h2><span class="dot"></span>RFP pipeline: 20 submitted</h2>
+        <h2><span class="dot"></span>RFP pipeline: 21 submitted</h2>
         <p class="hint">4 replies so far: CDC Foundation, RochesterWorks, Docomomo US/MN and North Arlington. Two proposals carry references, and both reference slots are now filled.</p>
         <div class="tablewrap">
           <table>
@@ -312,6 +319,7 @@
               <tr><td class="org">Utility Safety Partners<span class="note">DPPC brand development, $42,000 phased plus $3,000 translation. Supplement email decision open.</span></td><td class="amt">$45,000 total</td><td class="due">Dec 11, 11:59 pm</td><td class="contact">Michael Sullivan</td><td><span class="tag grey">AWAITING</span></td></tr>
               <tr><td class="org">Amideast<span class="note">E-commerce platform, priced phased at $65/hr. Contact unverified.</span></td><td class="amt">$78,000 to $97,500</td><td class="due">Nov 13, 11:59 pm ET</td><td class="contact">unverified</td><td><span class="tag grey">AWAITING</span></td></tr>
               <tr><td class="org">Spaulding for Children<span class="note">Community Resource Guide website. Contact unverified.</span></td><td class="amt">$27,500</td><td class="due">Nov 13</td><td class="contact">unverified</td><td><span class="tag grey">AWAITING</span></td></tr>
+              <tr><td class="org">IFFEd, Geneva<span class="note">Digital Platform and Website Partner. Digital Platform only. Applied Nov 12, 2026, 3:05 pm PKT, awaiting reply.</span></td><td class="amt">$65/hr, $1,200/mo retainer</td><td class="due">Nov 13</td><td class="contact">Joanna Hindley</td><td><span class="tag grey">AWAITING</span></td></tr>
               <tr><td class="org">St. Lucie County Clerk<span class="note">Website redesign, plus $8,500 optional AI chatbot.</span></td><td class="amt">$71,800</td><td class="due">Nov 30, 5:00 pm EST</td><td class="contact">unverified</td><td><span class="tag grey">AWAITING</span></td></tr>
               <tr><td class="org">Housing Assistance Council<span class="note">ruralhome.org redesign.</span></td><td class="amt">$48,000</td><td class="due">Dec 15</td><td class="contact">unverified</td><td><span class="tag grey">AWAITING</span></td></tr>
               <tr><td class="org">Pueblo Urban Renewal Authority<span class="note">Website redevelopment.</span></td><td class="amt">$15,000</td><td class="due">Nov 30, 5:00 pm MT</td><td class="contact">Shawn Carlson</td><td><span class="tag grey">AWAITING</span></td></tr>
@@ -350,7 +358,7 @@
             <span>Partner program needs <b>1,000 subs</b> and <b>10M</b> Shorts views in 90 days (20M from Feb 1, 2027)</span>
           </div>
           <ul class="clean" style="margin-top:8px;">
-            <li><span class="main"><span class="who">112 Shorts scheduled</span> <span class="what">: 2 weeks of content scheduled, all rendered at exactly 4.000 seconds, every daily slot filled. Story log at 363.</span></span><span class="when">Nov 9 to 22</span></li>
+            <li><span class="main"><span class="who">112 Shorts scheduled</span> <span class="what">: 12 days of content from today, all rendered at exactly 4.000 seconds, every daily slot filled. Story log at 363.</span></span><span class="when">Nov 12 to 23</span></li>
             <li><span class="main"><span class="who">Daily Shorts job paused</span> <span class="what"> while the scheduled block runs, then back to 5 per day.</span></span><span class="when">Resumes Nov 23</span></li>
             <li><span class="who">Long-form pilot</span> <span class="what">: "10 Stories That Sound Fake But Are Completely True" render is complete (9:12, 1920x1080, all 12 chapters verified, captions burned in). Thumbnail v5 approved Nov 12, 1:57 pm PKT. Your verdict on the watch comes first, then it uploads public with that thumbnail. Next long-form: one story per video, 8 to 12 minutes, Ada Blackjack first.</span></li>
             <li><span class="who">Pinterest test</span> <span class="what">: 3 pins a day at about 10:37 pm PKT, running at least a month. Pins 1 and 2 published Nov 12, 12:37 am PKT: </span><a href="https://www.pinterest.com/pin/650207265002262644/">Pin 1</a> <span class="what">and</span> <a href="https://www.pinterest.com/pin/650207265002262666/">Pin 2</a><span class="what">.</span></li>
@@ -514,7 +522,7 @@
       </section>
 
       <footer>
-        VORVE Command Center. Numbers as of Nov 12, 2026, 3:05 pm PKT. Anything marked unverified was not confirmed in the records. Refreshed every few hours through the day, and each refresh goes live here automatically.
+        VORVE Command Center. Numbers as of Nov 12, 2026, 3:27 pm PKT. Anything marked unverified was not confirmed in the records. Refreshed every few hours through the day, and each refresh goes live here automatically.
       </footer>
 
     </div>
