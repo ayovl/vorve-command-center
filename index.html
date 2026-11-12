@@ -45,13 +45,13 @@
 
       /* Header */
       header.top { padding: 10px 0 4px; }
-      .brandrow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .brandrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
       h1 {
         font-family: "Sora", "Manrope", sans-serif;
         font-size: 30px; font-weight: 800; letter-spacing: 0.04em; margin: 0;
       }
       h1 .accent { color: var(--teal); }
-      .clock { text-align: right; }
+      .clock { text-align: right; flex: none; padding-top: 4px; }
       .clock .time { font-family: "Sora", sans-serif; font-size: 22px; font-weight: 700; color: var(--ink); }
       .clock .date { font-size: 12.5px; color: var(--muted); }
       .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
@@ -74,7 +74,7 @@
       .goal .big { font-family: "Sora", sans-serif; font-size: 34px; font-weight: 800; line-height: 1; }
       .goal .big small { font-size: 17px; color: var(--muted); font-weight: 600; }
       .goal .lbl { font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
-      .goal .count { text-align: right; }
+      .goal .count { text-align: right; flex: none; }
       .goal .count .n { font-family: "Sora", sans-serif; font-size: 24px; font-weight: 700; color: var(--teal); }
       .goal .count .t { font-size: 12.5px; color: var(--muted); }
       .bar { height: 12px; border-radius: 999px; background: #0a1a30; border: 1px solid var(--line); margin-top: 14px; overflow: hidden; }
@@ -85,7 +85,9 @@
       .ladder .step {
         border: 1px solid var(--line); background: var(--bg2); border-radius: 10px;
         padding: 7px 12px; font-size: 13px; font-weight: 700;
+        flex: 1 1 0; min-width: 150px;
       }
+      .ladder .arr { flex: none; }
       .ladder .step small { display: block; font-weight: 600; color: var(--faint); font-size: 11px; }
       .ladder .step.first { border-color: var(--teal); color: var(--teal); }
       .ladder .arr { color: var(--faint); font-weight: 800; }
@@ -94,7 +96,8 @@
       .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
       @media (min-width: 720px) { .kpis { grid-template-columns: repeat(3, 1fr); } }
       @media (min-width: 1024px) { .kpis { grid-template-columns: repeat(6, 1fr); } }
-      .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+      .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; }
+      .kpi .t { margin-top: auto; padding-top: 4px; }
       .kpi .n { font-family: "Sora", sans-serif; font-size: 27px; font-weight: 800; line-height: 1.05; }
       .kpi .n.teal { color: var(--teal); }
       .kpi .t { font-size: 12.5px; color: var(--muted); margin-top: 4px; font-weight: 600; }
@@ -111,16 +114,18 @@
       .grid2 { display: grid; gap: 12px; }
       @media (min-width: 820px) { .grid2 { grid-template-columns: 1fr 1fr; } }
       .grid2 > .card { margin: 0; }
-      h3 { font-size: 14.5px; font-weight: 800; margin: 0 0 10px; }
-      h3 .tag { float: right; }
+      h3 { font-size: 14.5px; font-weight: 800; margin: 0 0 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      h3 .tag { flex: none; }
 
       ul.clean { list-style: none; margin: 0; padding: 0; }
       ul.clean li { padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; }
       ul.clean li:first-child { border-top: none; padding-top: 2px; }
       ul.clean li:last-child { padding-bottom: 2px; }
+      ul.clean li:has(> .when) { display: flex; align-items: baseline; gap: 14px; }
+      ul.clean li .main { flex: 1 1 auto; min-width: 0; }
       li .who { font-weight: 700; }
       li .what { color: var(--muted); }
-      li .when { float: right; font-size: 12.5px; color: var(--faint); font-weight: 700; white-space: nowrap; margin-left: 10px; }
+      li .when { flex: none; font-size: 12.5px; color: var(--faint); font-weight: 700; white-space: nowrap; text-align: right; }
 
       .tag {
         display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.03em;
@@ -137,13 +142,19 @@
       @media (min-width: 820px) { .decisions { grid-template-columns: 1fr 1fr; } }
       .decision {
         background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--amber);
-        border-radius: 10px; padding: 13px 15px; font-size: 14px;
+        border-radius: 10px; padding: 13px 15px; font-size: 14px; height: 100%;
       }
       .decision .d { font-size: 12px; font-weight: 800; color: var(--amber); letter-spacing: 0.04em; margin-bottom: 3px; }
 
       /* RFP table */
       .tablewrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
       table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th:nth-child(2), td.amt { width: 15%; }
+      th:nth-child(3), td.due { width: 16%; }
+      th:nth-child(4), td.contact { width: 17%; }
+      th:nth-child(5), td:last-child { width: 108px; }
+      td.amt { font-variant-numeric: tabular-nums; }
+      td .tag { margin-top: 1px; }
       th { text-align: left; font-size: 11.5px; letter-spacing: 0.06em; color: var(--faint); padding: 11px 14px; border-bottom: 1px solid var(--line); background: var(--bg2); }
       td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
       tr:last-child td { border-bottom: none; }
@@ -157,7 +168,7 @@
         thead { display: none; }
         tr { border-bottom: 1px solid var(--line); padding: 10px 14px; }
         tr:last-child { border-bottom: none; }
-        td { border: none; padding: 2px 0; white-space: normal; }
+        td { border: none; padding: 2px 0; white-space: normal; width: 100%; }
         td.due, td.amt { white-space: normal; }
         td.due::before { content: "Due "; color: var(--faint); font-weight: 700; }
         td.contact::before { content: "Contact: "; color: var(--faint); font-weight: 700; }
@@ -168,18 +179,29 @@
       @media (min-width: 720px) { .products { grid-template-columns: 1fr 1fr; } }
       .product { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px; }
       .product .pname { font-weight: 800; font-size: 15px; }
-      .product .prow { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 8px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+      .product { display: flex; flex-direction: column; }
+      .product .prow { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; gap: 10px; margin-top: 8px; font-size: 13px; color: var(--muted); }
+      .product .prow.demo { grid-template-columns: 1fr auto; margin-top: auto; padding-top: 8px; }
       .product .price { font-family: "Sora", sans-serif; font-size: 21px; font-weight: 800; color: var(--teal); }
       .btnlink {
-        display: inline-block; border: 1px solid var(--teal); color: var(--teal);
-        border-radius: 9px; padding: 8px 14px; font-weight: 700; font-size: 13px; min-height: 2.25rem;
+        display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--teal); color: var(--teal);
+        border-radius: 9px; padding: 8px 14px; font-weight: 700; font-size: 13px; min-height: 2.25rem; white-space: nowrap;
       }
       .btnlink:hover { background: var(--teal-dim); text-decoration: none; }
 
-      .statrow { display: flex; gap: 8px 26px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+      .statrow { display: flex; gap: 8px 26px; flex-wrap: wrap; align-items: baseline; font-size: 14px; color: var(--muted); }
       .statrow b { color: var(--ink); font-size: 16px; }
       footer { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--faint); }
       details.more summary { cursor: pointer; font-weight: 700; color: var(--teal); padding: 6px 0; font-size: 14px; }
+      .kpi.wide { grid-column: span 2; }
+      @media (max-width: 560px) {
+        .ladder .step { flex: 1 1 100%; min-width: 0; }
+        .ladder .arr { display: none; }
+        ul.clean li:has(> .when) { gap: 10px; }
+        li .when { font-size: 11.5px; }
+        .product .prow { grid-template-columns: 52px 1fr auto; }
+        h1 { font-size: 26px; }
+      }
     </style>
   </head>
   <body>
@@ -195,8 +217,8 @@
         </div>
         <div class="meta">
           <span>For <b>Arslan</b></span>
-          <span>Updated <b>Nov 12, 2026, 1:50 am PKT</b></span>
-          <span>Snapshot, not live data</span>
+          <span>Updated <b>Nov 12, 2026, 3:05 pm PKT</b></span>
+          <span>Live on Vercel · refreshed every few hours</span>
         </div>
       </header>
 
@@ -236,19 +258,16 @@
       <div class="kpis">
         <div class="kpi"><div class="n">20</div><div class="t">RFP proposals submitted</div></div>
         <div class="kpi"><div class="n teal">4</div><div class="t">RFP replies received</div></div>
-        <div class="kpi"><div class="n teal">1</div><div class="t">Social lead replies — Gilbert James only</div></div>
+        <div class="kpi"><div class="n teal">1</div><div class="t">Social lead replies: Gilbert James only</div></div>
         <div class="kpi"><div class="n">0</div><div class="t">Gumroad sales, $0 revenue</div></div>
-        <div class="kpi"><div class="n teal">56/56</div><div class="t">Obliq Week 1 Shorts scheduled</div></div>
-        <div class="kpi"><div class="n teal">56/56</div><div class="t">Obliq Week 2 Shorts scheduled</div></div>
+        <div class="kpi wide"><div class="n teal">112</div><div class="t">Obliq Shorts scheduled: 2 weeks of content</div></div>
       </div>
 
       <!-- Decisions -->
       <section>
         <h2><span class="dot"></span>Needs your call</h2>
         <div class="decisions">
-          <div class="decision"><div class="d">DUE NOV 13</div>TechEquity website redesign, draft $87,000 (range $80,000 to $100,000). Confirm price and schedule, then you submit it yourself by Google Form.</div>
-          <div class="decision"><div class="d">DUE NOV 13</div>IFFEd pair, both due Nov 13. Do both proposals, Digital Platform only, or leave them.</div>
-          <div class="decision"><div class="d">QUESTIONS CLOSE NOV 13</div>Nevada Health Centers website redesign ($81,000 max). Send the vendor questions email before questions close. Proposal due Nov 30.</div>
+          <div class="decision"><div class="d">ANSWERS EXPECTED NOV 18</div>Nevada Health Centers website redesign ($81,000 max). Vendor questions sent Nov 12 to Josh Charlebois, responses expected Nov 18. Proposal due Nov 30.</div>
           <div class="decision"><div class="d">AWAITING GO-AHEAD</div>Partner outreach batch 2: 20 drafts ready, none sent. Send all 20 now, first 8 then daily, or hold for edits.</div>
           <div class="decision"><div class="d">DECISION BY NOV 30</div>DOW Vienna (TED 744004-2026): register on the portal despite the German language procedure, or leave it. First stage due Nov 30, 12:00 pm CET.</div>
           <div class="decision"><div class="d">OPEN</div>Utility Safety Partners: send the short supplement email with the full link sets, or not. Plus the MassHire send-anyway call and the NPPD explanation email, both waiting on you.</div>
@@ -260,14 +279,15 @@
         <h2><span class="dot"></span>Next 7 days</h2>
         <div class="card">
           <ul class="clean">
-            <li><span class="when">Thu Nov 12</span><span class="who">Agency Day 3</span> <span class="what">: finish the site, deploy, buy and connect the domain (buy-domain task due today).</span></li>
-            <li><span class="when">Thu Nov 12, 10:37 pm</span><span class="who">Nightly jobs</span> <span class="what">: dentist mockup emails (up to 5), partner sends (up to 8, once batch 2 is approved), Pinterest pins (3).</span></li>
-            <li><span class="when">Fri Nov 13, 6:00 pm</span><span class="who">Agency launch deadline</span> <span class="what">: site live plus business email working. Email setup is Day 4, same day.</span></li>
-            <li><span class="when">Fri Nov 13</span><span class="who">Proposal deadlines</span> <span class="what">: TechEquity and the IFFEd pair due; CDC Foundation, RochesterWorks, Amideast and Spaulding deadlines land too (all four already applied). Nevada Health Centers questions close.</span></li>
-            <li><span class="when">Fri Nov 13, 2:07 pm</span><span class="who">Obliq weekly strategy review</span> <span class="what">: first run of the Friday job.</span></li>
-            <li><span class="when">Mon Nov 16</span><span class="who">Agency absolute max launch date</span> <span class="what"> if Nov 13 slips.</span></li>
-            <li><span class="when">Tue Nov 17</span><span class="who">Coastal Bend questions due</span> <span class="what"> (proposal already applied).</span></li>
-            <li><span class="when">Thu Nov 19</span><span class="who">MEDA deadline</span> <span class="what"> (already applied). Coming up after: Nov 20 NBWC and MassHire deadlines, Nov 23 Warren County due and Obliq daily Shorts resume, Nov 30 four applied proposals due plus the Kashiwada follow-up.</span></li>
+            <li><span class="main"><span class="who">Agency Day 3</span> <span class="what">: finish the site, deploy, buy and connect the domain (buy-domain task due today).</span></span><span class="when">Thu Nov 12</span></li>
+            <li><span class="main"><span class="who">Nightly jobs</span> <span class="what">: dentist mockup emails (up to 5), partner sends (up to 8, once batch 2 is approved), Pinterest pins (3).</span></span><span class="when">Thu Nov 12, 10:37 pm</span></li>
+            <li><span class="main"><span class="who">Agency launch deadline</span> <span class="what">: site live plus business email working. Email setup is Day 4, same day.</span></span><span class="when">Fri Nov 13, 6:00 pm</span></li>
+            <li><span class="main"><span class="who">Proposal deadlines</span> <span class="what">: TechEquity ($87,000 confirmed, form submission in progress) and the IFFEd pair (Digital Platform only) are due; CDC Foundation, RochesterWorks, Amideast and Spaulding deadlines land too (all four already applied). Nevada Health Centers vendor questions already sent.</span></span><span class="when">Fri Nov 13</span></li>
+            <li><span class="main"><span class="who">Obliq weekly strategy review</span> <span class="what">: first run of the Friday job.</span></span><span class="when">Fri Nov 13, 2:07 pm</span></li>
+            <li><span class="main"><span class="who">Agency absolute max launch date</span> <span class="what"> if Nov 13 slips.</span></span><span class="when">Mon Nov 16</span></li>
+            <li><span class="main"><span class="who">Coastal Bend questions due</span> <span class="what"> (proposal already applied).</span></span><span class="when">Tue Nov 17</span></li>
+            <li><span class="main"><span class="who">Nevada Health Centers</span> <span class="what">: answers to the vendor questions expected from Josh Charlebois. Proposal due Nov 30.</span></span><span class="when">Wed Nov 18</span></li>
+            <li><span class="main"><span class="who">MEDA deadline</span> <span class="what"> (already applied). Coming up after: Nov 20 NBWC and MassHire deadlines, Nov 23 Warren County due and Obliq daily Shorts resume, Nov 30 four applied proposals due plus the Kashiwada follow-up.</span></span><span class="when">Thu Nov 19</span></li>
           </ul>
         </div>
       </section>
@@ -308,10 +328,14 @@
         <div class="card" style="margin-top:12px;">
           <h3>Also in the RFP queue</h3>
           <ul class="clean">
+            <li><span class="who">Old Doha Port</span> <span class="what">: EOI sent Nov 12, 10:44 am, awaiting documents, due Nov 26.</span></li>
+            <li><span class="who">FERDE AS Norway</span> <span class="what">: competition documents requested Nov 12, 11:05 am, awaiting documents, due Dec 7.</span></li>
+            <li><span class="who">Detroit</span> <span class="what">: follow-up sent Nov 12, 6:37 am, awaiting certification forms.</span></li>
+            <li><span class="who">Cayman Islands</span> <span class="what">: due Nov 23, needs you to clear a Cloudflare check.</span></li>
             <li><span class="who">MassHire Metro North</span> <span class="what">: Website Vendor RFQ due Nov 20 and Graphic Designer RFQ due Dec 1, queued low priority. Send-anyway call is yours.</span></li>
             <li><span class="who">Weslaco RFP 2026-27-04</span> <span class="what"> due Dec 3 and </span><span class="who">Monroe MI 2026-025</span> <span class="what"> due Dec 7: queued low priority, reference-gap queue.</span></li>
             <li><span class="who">San Diego MTS (G3261.0-27)</span> <span class="what"> due Dec 15: held on pass/fail gates, your bid-anyway decision still open.</span></li>
-            <li><span class="who">Daily cap</span> <span class="what">: top 3 RFP actions per day, waking hours 6:30 am to 9:30 pm PKT.</span></li>
+            <li><span class="who">Daily cap</span> <span class="what">: top 3 RFP actions per day, waking hours 6:30 am to 9:30 pm PKT. Today 3 of 3 used, plus the Nevada Health Centers questions as a 4th at your instruction.</span></li>
           </ul>
         </div>
       </section>
@@ -326,10 +350,9 @@
             <span>Partner program needs <b>1,000 subs</b> and <b>10M</b> Shorts views in 90 days (20M from Feb 1, 2027)</span>
           </div>
           <ul class="clean" style="margin-top:8px;">
-            <li><span class="when">Nov 9 to 15</span><span class="who">Week 1: 56 of 56 scheduled</span> <span class="what">, all rendered at exactly 4.000 seconds. Story log at 307.</span></li>
-            <li><span class="when">Nov 16 to 22</span><span class="who">Week 2: 56 of 56 scheduled</span> <span class="what">, all 8 daily slots filled. Story log at 363.</span></li>
-            <li><span class="when">Resumes Nov 23</span><span class="who">Daily Shorts job paused</span> <span class="what"> through both batch weeks, then back to 5 per day.</span></li>
-            <li><span class="who">Long-form pilot</span> <span class="what">: "10 Stories That Sound Fake But Are Completely True", at the final join stage at last check (Nov 12, about 1:11 am PKT), upload pending. Next long-form: one story per video, 8 to 12 minutes, Ada Blackjack first.</span></li>
+            <li><span class="main"><span class="who">112 Shorts scheduled</span> <span class="what">: 2 weeks of content scheduled, all rendered at exactly 4.000 seconds, every daily slot filled. Story log at 363.</span></span><span class="when">Nov 9 to 22</span></li>
+            <li><span class="main"><span class="who">Daily Shorts job paused</span> <span class="what"> while the scheduled block runs, then back to 5 per day.</span></span><span class="when">Resumes Nov 23</span></li>
+            <li><span class="who">Long-form pilot</span> <span class="what">: "10 Stories That Sound Fake But Are Completely True" render is complete (9:12, 1920x1080, all 12 chapters verified, captions burned in). Thumbnail v5 approved Nov 12, 1:57 pm PKT. Your verdict on the watch comes first, then it uploads public with that thumbnail. Next long-form: one story per video, 8 to 12 minutes, Ada Blackjack first.</span></li>
             <li><span class="who">Pinterest test</span> <span class="what">: 3 pins a day at about 10:37 pm PKT, running at least a month. Pins 1 and 2 published Nov 12, 12:37 am PKT: </span><a href="https://www.pinterest.com/pin/650207265002262644/">Pin 1</a> <span class="what">and</span> <a href="https://www.pinterest.com/pin/650207265002262666/">Pin 2</a><span class="what">.</span></li>
           </ul>
         </div>
@@ -338,7 +361,7 @@
       <!-- Sales / Gumroad -->
       <section>
         <h2><span class="dot"></span>Sales: Gumroad</h2>
-        <p class="hint">0 sales and $0 revenue as of Nov 11, about 10:02 pm PKT. 46 total product page views. Payout only at a $100 balance.</p>
+        <p class="hint">0 sales and $0 revenue as of Nov 12, about 3:00 pm PKT. 46 total product page views. Payout only at a $100 balance.</p>
         <div class="products">
           <div class="product">
             <div class="pname">The Most Interesting Person in the Room (Workbook)</div>
@@ -355,7 +378,7 @@
           <div class="product">
             <div class="pname">Cash Home Buyer Website Template <span class="tag teal">NEW</span></div>
             <div class="prow"><span class="price">$39</span><span>Published Nov 11, 11:44 pm PKT</span><a class="btnlink" href="https://obliq.gumroad.com/l/cash-home-buyer-website-template">View product</a></div>
-            <div class="prow"><span>Live demo available</span><a href="https://sellfast-template-preview.vercel.app/">sellfast-template-preview.vercel.app</a></div>
+            <div class="prow demo"><span>Live demo available</span><a href="https://sellfast-template-preview.vercel.app/">sellfast-template-preview.vercel.app</a></div>
           </div>
         </div>
         <p class="hint" style="margin-top:10px;">Store: <a href="https://obliq.gumroad.com/">obliq.gumroad.com</a>. Open call: keep the Obliq store name, rename the display name, or open a separate store.</p>
@@ -375,37 +398,46 @@
           <ul class="clean" style="margin-top:8px;">
             <li><span class="who">Gilbert James</span> <span class="what">: the only social lead reply so far. He replied and routed you to his team manager Larry Derris for the web store project; awaiting requirements, store link and timeline.</span></li>
             <li><span class="what">No one else has replied to a comment or DM&rsquo;d back yet. Tracked across Facebook comments, Messenger (your profile and the Page) and LinkedIn leads, checked each round.</span></li>
+            <li><span class="what">Inboxes rechecked Nov 12: the Devolip Solutions Page inbox is empty, and your own Messenger has no new lead replies. Gilbert James is still the only reply.</span></li>
           </ul>
         </div>
         <div class="grid2">
           <div class="card">
             <h3>Facebook buyers, latest rounds</h3>
             <ul class="clean">
-              <li><span class="when">Nov 12, 12:21 am</span><span class="who">Spotted Newton Abbot (Tia)</span> <span class="what">: logo plus website rebrand.</span></li>
-              <li><span class="when">Nov 12, 12:21 am</span><span class="who">Jad Ali</span> <span class="what">: professional website designer (Arabic post).</span></li>
-              <li><span class="when">Nov 11, 8:21 pm</span><span class="who">Bulent Karahanli</span> <span class="what">: website work (Turkish post).</span></li>
-              <li><span class="when">Nov 11, 8:21 pm</span><span class="who">Mahamudul Hasan</span> <span class="what">: professional web designer for a website profile.</span></li>
-              <li><span class="when">Nov 11, 10:21 pm</span><span class="who">James Davis</span> <span class="what">: build a webpage.</span></li>
-              <li><span class="when">Nov 10, 10:21 pm</span><span class="who">Jimmy Anderson</span> <span class="what">: modern 4-page website, Dunnellon FL.</span></li>
-              <li><span class="when">Nov 10, 2:21 pm</span><span class="who">Kaleigh Emaline</span> <span class="what">: Webflow update for a Park City UT medical practice.</span></li>
-              <li><span class="when">Nov 10, 2:21 pm</span><span class="who">Fady Hassan</span> <span class="what">: e-commerce website, Melbourne AU distribution business.</span></li>
-              <li><span class="when">Nov 10, 4:21 am</span><span class="who">Tim K Smith</span> <span class="what">: new website, Oregon.</span></li>
-              <li><span class="when">Nov 10, 4:21 am</span><span class="who">Chyness Empire</span> <span class="what">: standard business website.</span></li>
+              <li><span class="main"><span class="who">LD Embroidery</span> <span class="what">: online shop (Shopify/WooCommerce) with a payment system, wants it quickly. DM sent Nov 12, awaiting reply.</span></span><span class="when">Nov 12</span></li>
+              <li><span class="main"><span class="who">Noor Ayman</span> <span class="what">: designer and developer of an electronic platform from scratch. LEAD-REPORTED, Page comment draft ready.</span></span><span class="when">Nov 12, 12:26 pm</span></li>
+              <li><span class="main"><span class="who">Vered Peri</span> <span class="what">: website design and build for a financial company project. LEAD-REPORTED, Page comment draft ready.</span></span><span class="when">Nov 12, 10:28 am</span></li>
+              <li><span class="main"><span class="who">Halina Slaby</span> <span class="what">: set up a nice website and help run it. LEAD-REPORTED, Page comment draft ready.</span></span><span class="when">Nov 12, 6:32 am</span></li>
+              <li><span class="main"><span class="who">Spotted Newton Abbot (Tia)</span> <span class="what">: logo plus website rebrand.</span></span><span class="when">Nov 12, 12:21 am</span></li>
+              <li><span class="main"><span class="who">Jad Ali</span> <span class="what">: professional website designer (Arabic post).</span></span><span class="when">Nov 12, 12:21 am</span></li>
+              <li><span class="main"><span class="who">Bulent Karahanli</span> <span class="what">: website work (Turkish post).</span></span><span class="when">Nov 11, 8:21 pm</span></li>
+              <li><span class="main"><span class="who">Mahamudul Hasan</span> <span class="what">: professional web designer for a website profile.</span></span><span class="when">Nov 11, 8:21 pm</span></li>
+              <li><span class="main"><span class="who">James Davis</span> <span class="what">: build a webpage.</span></span><span class="when">Nov 11, 10:21 pm</span></li>
+              <li><span class="main"><span class="who">Jimmy Anderson</span> <span class="what">: modern 4-page website, Dunnellon FL.</span></span><span class="when">Nov 10, 10:21 pm</span></li>
+              <li><span class="main"><span class="who">Kaleigh Emaline</span> <span class="what">: Webflow update for a Park City UT medical practice.</span></span><span class="when">Nov 10, 2:21 pm</span></li>
+              <li><span class="main"><span class="who">Fady Hassan</span> <span class="what">: e-commerce website, Melbourne AU distribution business.</span></span><span class="when">Nov 10, 2:21 pm</span></li>
+              <li><span class="main"><span class="who">Tim K Smith</span> <span class="what">: new website, Oregon. He re-posted Nov 10 asking to be contacted again after losing your details, but needs an inexpensive or no-expense creator for a 501(c)(4) fundraiser, so chasing him is your call.</span></span><span class="when">Nov 10, 4:21 am</span></li>
+              <li><span class="main"><span class="who">Chyness Empire</span> <span class="what">: standard business website.</span></span><span class="when">Nov 10, 4:21 am</span></li>
             </ul>
             <p class="hint" style="margin:10px 0 0;">All logged as leads with comment drafts ready. New model from Nov 12, about 1:09 am PKT: Page comments go out directly on the top 3 freshest verified buyers per round, plus 1 Messenger DM a day. The daily DM is blocked until Messenger is logged in.</p>
           </div>
           <div class="card">
             <h3>Lead emails sent, awaiting reply</h3>
             <ul class="clean">
-              <li><span class="when">Nov 11, 9:41 pm</span><span class="who">Larry Derris</span> <span class="what">: web store design project, awaiting requirements, store link and timeline.</span></li>
-              <li><span class="when">Nov 11, 10:29 pm</span><span class="who">Dan Barnicoat</span> <span class="what">: websites for his domains.</span></li>
-              <li><span class="when">Nov 10, 5:36 pm</span><span class="who">Anna Barker</span> <span class="what">: website setup and publishing, $250 quoted (Cathedral City Craigslist).</span></li>
-              <li><span class="when">Nov 11, 10:55 pm</span><span class="who">Thomas Heering</span> <span class="what">: forum setup for ImPig.com, no price quoted (Phoenix Craigslist).</span></li>
-              <li><span class="when">Nov 11 evening</span><span class="who">Ben Jensen Dental</span> <span class="what">: pitch email sent after the call (your version). Exact time unverified.</span></li>
+              <li><span class="main"><span class="who">Mike Menahem</span> <span class="what"> (CF Motions): looking to hire a web dev agency for his existing site and marketing. Emailed Nov 12, awaiting reply.</span></span><span class="when">Nov 12</span></li>
+              <li><span class="main"><span class="who">LA resume formatting buyer (Craigslist)</span> <span class="what">: replied Nov 12, 7:00 am PKT, awaiting reply.</span></span><span class="when">Nov 12</span></li>
+              <li><span class="main"><span class="who">NY graphic design and print-ready buyer (Craigslist)</span> <span class="what">: replied Nov 12, 2:52 am PKT, awaiting reply.</span></span><span class="when">Nov 12</span></li>
+              <li><span class="main"><span class="who">Larry Derris</span> <span class="what">: web store design project, awaiting requirements, store link and timeline.</span></span><span class="when">Nov 11, 9:41 pm</span></li>
+              <li><span class="main"><span class="who">Dan Barnicoat</span> <span class="what">: websites for his domains.</span></span><span class="when">Nov 11, 10:29 pm</span></li>
+              <li><span class="main"><span class="who">Anna Barker</span> <span class="what">: website setup and publishing, $250 quoted (Cathedral City Craigslist).</span></span><span class="when">Nov 10, 5:36 pm</span></li>
+              <li><span class="main"><span class="who">Thomas Heering</span> <span class="what">: forum setup for ImPig.com, no price quoted (Phoenix Craigslist).</span></span><span class="when">Nov 11, 10:55 pm</span></li>
+              <li><span class="main"><span class="who">Ben Jensen Dental</span> <span class="what">: pitch email sent after the call (your version). Exact time unverified.</span></span><span class="when">Nov 11 evening</span></li>
             </ul>
             <h3 style="margin-top:16px;">Partner outreach (Lane B)</h3>
             <ul class="clean">
-              <li><span class="who">Batch 1</span> <span class="what">: 15 of 20 contacted Nov 12, about 12:14 to 12:18 am PKT (12 emails, 3 contact forms). 5 untouched: 1 held, 2 CAPTCHA blocked, 2 Instagram DM only. Rate in the emails: $450 standard 5-page site, $250 landing page.</span></li>
+              <li><span class="main"><span class="who">Mackenzie Kerr</span> <span class="what"> (Mackenzie Kerr Consulting): partner email sent to hello@mkerrconsulting.ca with the $450 / $250 rates and your work links. Awaiting reply.</span></span><span class="when">Nov 12</span></li>
+              <li><span class="who">Batch 1</span> <span class="what">: 16 of 20 contacted (12 emails, 3 contact forms, plus Mackenzie Kerr emailed Nov 12, 1:51 pm PKT after you approved the draft). 4 untouched: 1 held, 1 CAPTCHA blocked, 2 Instagram DM only. Rate in the emails: $450 standard 5-page site, $250 landing page.</span></li>
               <li><span class="who">Batch 2</span> <span class="what">: 40 targets built and verified, 20 drafts ready, none sent, awaiting your go-ahead. 6 borderline flagged for your eye.</span></li>
               <li><span class="who">Cadence</span> <span class="what">: about 5 to 8 sends a day, 5 days a week, never more than 20 to 25 cold emails a day.</span></li>
             </ul>
@@ -438,11 +470,11 @@
           <div class="card">
             <h3>Batch 2: 15 dentists, 5 mockup emails sent</h3>
             <ul class="clean">
-              <li><span class="when">Nov 12, 1:21 am</span><span class="who">Nielsen Dental PC</span> <span class="what">, Helena MT. Sent with the old link format.</span></li>
-              <li><span class="when">Nov 12, 1:21 am</span><span class="who">Thompson Dental</span> <span class="what">, Marshall MO. Sent with the old link format.</span></li>
-              <li><span class="when">Nov 12, 1:21 am</span><span class="who">Hall Family Dentistry</span> <span class="what">, Huntington WV. Corrected format.</span></li>
-              <li><span class="when">Nov 12, 1:21 am</span><span class="who">Hage Family Dentistry</span> <span class="what">, Gulfport MS. Corrected format.</span></li>
-              <li><span class="when">Nov 12, 1:21 am</span><span class="who">Dr. Lawrence W. Purcell</span> <span class="what">, Warrensburg MO. Corrected format.</span></li>
+              <li><span class="main"><span class="who">Nielsen Dental PC</span> <span class="what">, Helena MT. Sent with the old link format.</span></span><span class="when">Nov 12, 1:21 am</span></li>
+              <li><span class="main"><span class="who">Thompson Dental</span> <span class="what">, Marshall MO. Sent with the old link format.</span></span><span class="when">Nov 12, 1:21 am</span></li>
+              <li><span class="main"><span class="who">Hall Family Dentistry</span> <span class="what">, Huntington WV. Corrected format.</span></span><span class="when">Nov 12, 1:21 am</span></li>
+              <li><span class="main"><span class="who">Hage Family Dentistry</span> <span class="what">, Gulfport MS. Corrected format.</span></span><span class="when">Nov 12, 1:21 am</span></li>
+              <li><span class="main"><span class="who">Dr. Lawrence W. Purcell</span> <span class="what">, Warrensburg MO. Corrected format.</span></span><span class="when">Nov 12, 1:21 am</span></li>
               <li><span class="who">Held</span> <span class="what">: Smith Dental (closure notice Oct 14) and Simpson (uncertain no-website check).</span></li>
               <li><span class="who">Nightly jobs</span> <span class="what">: weekdays about 10:37 pm PKT, dentists up to 5 mockup emails a day and partners up to 8 a day, each checking Sent and the seen list first.</span></li>
             </ul>
@@ -455,10 +487,10 @@
         <h2><span class="dot"></span>Agency site build</h2>
         <div class="card">
           <ul class="clean">
-            <li><span class="when">Day 1</span><span class="who">Homepage and services</span> <span class="what">: unverified, no record the work was completed.</span></li>
-            <li><span class="when">Day 2</span><span class="who">Work and About copy</span> <span class="what">: ready since Nov 11, about 11:35 am PKT. Delivery waiting on your two confirmations.</span></li>
-            <li><span class="when">Day 3, today</span><span class="who">Finish, deploy, buy and connect the domain.</span></li>
-            <li><span class="when">Day 4, Nov 13</span><span class="who">Business email setup</span> <span class="what">, then launch by 6:00 pm PKT.</span></li>
+            <li><span class="main"><span class="who">Homepage and services</span> <span class="what">: unverified, no record the work was completed.</span></span><span class="when">Day 1</span></li>
+            <li><span class="main"><span class="who">Work and About copy</span> <span class="what">: ready since Nov 11, about 11:35 am PKT. Delivery waiting on your two confirmations.</span></span><span class="when">Day 2</span></li>
+            <li><span class="main"><span class="who">Finish, deploy, buy and connect the domain.</span></span><span class="when">Day 3, today</span></li>
+            <li><span class="main"><span class="who">Business email setup</span> <span class="what">, then launch by 6:00 pm PKT.</span></span><span class="when">Day 4, Nov 13</span></li>
             <li><span class="who">Domain</span> <span class="what">: not bought yet, and its availability was never verified. </span><span class="who">Business email</span> <span class="what">: not set up yet.</span></li>
             <li><span class="who">LinkedIn</span> <span class="what">: agency page live with 240 followers, your profile at 278 followers and being rewritten. LinkedIn leads work started Nov 12.</span></li>
             <li><span class="who">Public business contact</span> <span class="what">: arsalmaab@gmail.com, +1 4153907554, 145 Tyee Dr PMB 59934, Point Roberts WA 98281.</span></li>
@@ -482,7 +514,7 @@
       </section>
 
       <footer>
-        VORVE Command Center. Numbers as of Nov 12, 2026, 1:50 am PKT. Anything marked unverified was not confirmed in the records. This page is a fixed snapshot: it changes only when the dashboard is rebuilt with fresh numbers.
+        VORVE Command Center. Numbers as of Nov 12, 2026, 3:05 pm PKT. Anything marked unverified was not confirmed in the records. Refreshed every few hours through the day, and each refresh goes live here automatically.
       </footer>
 
     </div>
